@@ -1,0 +1,80 @@
+version: "3.8"
+services:
+  mpp-mongo:
+    image: mongo:latest
+    container_name: mpp-mongo
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: password
+    volumes:
+      - ./init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js:ro
+      - mongo_data:/data/db
+  mpp-core:
+    image: kapiaszczyk/mpp-core:0.1.3
+    container_name: mpp-core
+    build: .
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mpp-mongo
+    environment:
+      - MONGO_HOST=mpp-mongo
+      - MONGO_PORT=27017
+      - MONGO_DATABASE=mpp
+      - MONGO_USER=mpp
+      - MONGO_PASSWORD=mpp
+      - PORT=8080
+      - RABBITMQ_HOST=mpp-rabbitmq
+      - RABBITMQ_PORT=5672
+      - RABBITMQ_USERNAME=mpp-core
+      - RABBITMQ_PASSWORD=mpp-core
+      - TAGGING_SERVICE_API_KEY=tagging-service-key
+  mpp-classifier:
+    image: kapiaszczyk/mpp-classifier:0.1.1
+    container_name: /mpp-classifier
+    ports:
+      - "5000:5000"
+    depends_on:
+      - mpp-rabbitmq
+    environment:
+      - LOG_LEVEL=DEBUG
+      - MPP_CORE_PORT=8080
+      - MPP_CORE_API_KEY=tagging-service-key
+      - MPP_CORE_HOST=mpp-core
+      - RABBITMQ_HOST=mpp-rabbitmq
+      - RABBITMQ_PORT=5672
+      - RABBITMQ_USERNAME=mpp-tagging-service
+      - RABBITMQ_PASSWORD=mpp-tagging-service
+  mpp-client:
+    image: kapiaszczyk/mpp-client:0.1.3
+    container_name: mpp-frontend
+    ports:
+      - "4200:80"
+    environment:
+      - MPP-CORE-PORT=8080
+  mpp-rabbitmq:
+    image: rabbitmq:4.0.0-management-alpine
+    container_name: mpp-rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    command: rabbitmq-server
+    healthcheck:
+      test: ["CMD", "rabbitmqctl", "status"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    volumes:
+      - ./rabbitmq/rabbitmq.conf:/etc/rabbitmq/rabbitmq.conf:ro
+      - ./rabbitmq/definitions.json:/etc/rabbitmq/definitions.json:ro
+  portainer:
+    container_name: portainer
+    image: portainer/portainer-ce
+    ports:
+      - "9000:9000"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+volumes:
+  mongo_data:

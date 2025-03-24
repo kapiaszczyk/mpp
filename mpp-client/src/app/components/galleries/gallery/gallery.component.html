@@ -1,0 +1,113 @@
+<mat-sidenav-container class="sidenav-container-fullscreen full-height">
+  <!-- Side Menu -->
+  <mat-sidenav #sidenav mode="side" class="sidenav">
+    <mat-toolbar color="primary">
+      <img src="favicon.ico" alt="Logo" class="logo" />
+      {{ 'application.title' | translate }}
+    </mat-toolbar>
+    <nav class="menu-list">
+      <app-shared-menu [menuItems]="menuItems"></app-shared-menu>
+    </nav>
+  </mat-sidenav>
+
+  <!-- Main Content (Gallery) -->
+  <mat-sidenav-content class="gallery-content">
+    <mat-toolbar color="primary" class="toolbar">
+      <div class="left-section">
+        <button mat-icon-button (click)="sidenav.toggle()">
+          <mat-icon>menu</mat-icon>
+        </button>
+        <span>{{ 'mainGallery.title' | translate }}</span>
+      </div>
+
+      <div class="spacer"></div>
+
+      <div class="search-bar-container">
+        <mat-form-field appearance="outline" class="search-bar" subscriptSizing="dynamic">
+          <mat-label>{{ 'search.placeholder' | translate }}</mat-label>
+          <input type="text" matInput [formControl]="searchControl" [matAutocomplete]="auto"
+            (keyup.enter)="searchByTag(searchControl.value!)" />
+          <mat-icon matSuffix>search</mat-icon>
+        </mat-form-field>
+
+        <mat-autocomplete #auto="matAutocomplete" (optionSelected)="searchByTag($event.option.value)">
+          <mat-option *ngFor="let tag of filteredTags | async" [value]="tag">
+            {{ tag }}
+          </mat-option>
+        </mat-autocomplete>
+      </div>
+    </mat-toolbar>
+
+
+    <div class="content">
+
+      <div class="album-actions-container">
+
+        <app-breadcrumbs [breadcrumbs]="breadcrumbs" [navigateToDomain]="navigateToDomain"
+          *ngIf="breadcrumbs.length !== 1" />
+
+        <div class="album-actions">
+          <app-add-album-button [currentDomainId]="currentDomainId!"
+            (albumCreated)="getChildrenDomains(currentDomainId!)" *ngIf="isInRootAlbum()" />
+          <app-share-album-button [currentDomainId]="currentDomainId!" *ngIf="!isInRootAlbum()" />
+          <app-remove-album-cover-button [currentDomainId]="currentDomainId!"
+            *ngIf="!isInRootAlbum() && currentDomainData?.thumbnailId"
+            (albumCoverRemoved)="fetchDomainData(currentDomainId)" />
+          <app-rename-album-button [albumId]="currentDomainId!" [albumName]="currentDomainData?.name!"
+            (albumRenamed)="fetchDomainData(currentDomainId)" *ngIf="!isInRootAlbum()" />
+          <app-show-album-info-button [currentDomainId]="currentDomainId!" *ngIf="!isInRootAlbum()"/>
+          <app-delete-album-button [currentDomainId]="currentDomainId!" [currentDomainData]="currentDomainData"
+            (albumDeleted)="getChildrenDomains(currentDomainId!)" *ngIf="!isInRootAlbum()" />
+        </div>
+
+      </div>
+
+      <app-album-cards *ngIf="domains.length > 0" [albums]="domains"
+        [navigateToDomain]="navigateToDomain"></app-album-cards>
+
+      <div class="no-content-albums" *ngIf="domains.length === 0 && isInRootAlbum()">
+        <app-no-albums-card/>
+      </div>
+
+      <div *ngIf="!currentDomainData?.parentId && photos.length > 0" class="photos-in-root-domain">
+        {{ 'mainGallery.photosInRootAlbum' | translate }}
+      </div>
+
+      <div *ngIf="!currentDomainData?.parentId && photos.length === 0" class="photos-in-root-domain">
+        {{ 'mainGallery.noPhotosInRootAlbum' | translate }}
+      </div>
+
+      <div class="no-content" *ngIf="(!photos || photos.length === 0 ) && currentDomainData?.parentId && !areNewPhotosBeingUploaded && !arePhotosLoading">
+        <app-empty-album-card />
+      </div>
+
+      <div class="spinner-container" *ngIf="arePhotosLoading" >
+        <mat-spinner diameter="100"></mat-spinner>
+      </div>
+
+      <app-photo-selection-bar *ngIf="photos.length > 0 && isAtLeastOnePhotoSelected()"
+        [canSetAsAlbumCover]="!isInRootAlbum()" [selectedPhotosCount]="selectedPhotosCount()"
+        [totalPhotos]="photos.length" (toggleSelectAll)="toggleSelectAll($event)" (download)="downloadPhotos()"
+        (move)="openMoveDialog()" (duplicate)="openDuplicateDialog()" (delete)="deletePhotos()"
+        (setAsAlbumCover)="setAsAlbumCover()">
+        ></app-photo-selection-bar>
+
+      <app-photo-cards [photos]="photos" [currentDomainId]="currentDomainId!" [selectedPhotos]="selectedPhotos"
+        (photoClicked)="viewPhoto($event)"
+        (photoSelectionChanged)="togglePhotoSelection($event.photoId, $event.checked)"
+        [areNewPhotosBeingUploaded]="areNewPhotosBeingUploaded"
+      />
+
+      <app-upload-button *ngIf="currentDomainId" [event]="uploadEvent" [domainId]="currentDomainId"
+        (done)="onUploadComplete()" (started)="onUploadStarted()">
+      </app-upload-button>
+
+      <!-- Fullscreen Photo Viewer -->
+      <app-photo-viewer *ngIf="isPhotoViewerOpen" [photos]="photos" [currentPhotoIndex]="selectedPhotoIndex"
+        [currentPhotoId]="photos[selectedPhotoIndex].id" [openedFromGallery]="true" (close)="closePhotoViewer()">
+      </app-photo-viewer>
+
+    </div>
+
+  </mat-sidenav-content>
+</mat-sidenav-container>

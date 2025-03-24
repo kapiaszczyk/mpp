@@ -1,0 +1,5 @@
+<nav class="menu-list">
+    <button mat-button *ngFor="let item of menuItems" (click)="navigate(item.route)" [hidden]="item.hidden">
+        {{item.label | translate }}
+    </button>
+</nav>

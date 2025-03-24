@@ -1,0 +1,21 @@
+.rename-album-dialog {
+    overflow: visible;
+    margin: 5px 0 0 0;
+}
+
+mat-dialog-content {
+    padding-bottom: 0;
+}
+
+mat-dialog-content.rename-album-dialog {
+    padding-bottom: 0;
+}
+
+mat-form-field.no-bottom-margin {
+    margin-bottom: 0 !important;
+}
+
+mat-dialog-actions {
+    padding: 8px 16px;
+    justify-content: flex-end;
+}

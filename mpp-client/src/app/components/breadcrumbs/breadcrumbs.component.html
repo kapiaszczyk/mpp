@@ -1,0 +1,17 @@
+<div class="breadcrumbs">
+  <ng-container *ngFor="let crumb of breadcrumbs; let isFirst = first; let isLast = last;">
+    <div class="crumb">
+      <button mat-mini-fab *ngIf="isFirst" (click)="navigateToDomain(crumb.id)" [ngClass]="{'last-crumb': isLast}"
+        [matTooltip]="'tooltip.goToRootAlbum' | translate"
+        class="first-crumb">
+        <mat-icon>home</mat-icon>
+      </button>
+
+      <button mat-button *ngIf="!isFirst" (click)="navigateToDomain(crumb.id)" [ngClass]="{'last-crumb': isLast}">
+        <span *ngIf="!isFirst">{{ crumb.name }}</span>
+      </button>
+
+      <mat-icon class="separator" *ngIf="!isLast">chevron_right</mat-icon>
+    </div>
+  </ng-container>
+</div>

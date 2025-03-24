@@ -1,0 +1,25 @@
+mat-chip {
+    cursor: pointer;
+    margin: 4px;
+}
+
+mat-chip:hover {
+    background-color: #f1f1f116;
+}
+
+mat-chip {
+    font-weight: bold;
+    background-color: #f1f1f116;
+    color: #007bff;
+}
+
+mat-chip.current-tag {
+    background-color: #f8f8f831;
+    font-weight: bold;
+  }
+  
+
+mat-chip.special-chip {
+    background-color: #f1f1f116;
+    color: #007bff;
+}

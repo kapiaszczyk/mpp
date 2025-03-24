@@ -1,0 +1,16 @@
+mat-dialog-content {
+    overflow-y: auto;
+}
+
+mat-dialog-actions {
+    display: flex;
+    justify-content: flex-end;
+}
+
+mat-card {
+    background: none;
+}
+
+.mat-mdc-card-content {
+    padding: 0;
+}

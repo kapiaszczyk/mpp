@@ -1,0 +1,67 @@
+.permission-dropdown {
+    margin-right: 10px;
+}
+
+.dialog-content {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.add-user-section {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+mat-dialog-content {
+    max-height: 400px;
+    overflow: auto;
+}
+
+mat-dialog-actions {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.shared-users {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+mat-list {
+    max-height: 250px;
+    overflow-y: auto;
+}
+
+mat-list-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: auto;
+    min-height: 64px;
+}
+
+.user-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    min-height: 64px;
+}
+
+.mdc-list-item.mdc-list-item--with-one-line {
+    height: 75px;
+}
+
+.user-input {
+    flex: 1;
+}

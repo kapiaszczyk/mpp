@@ -1,0 +1,56 @@
+{
+    "rabbit_version": "4.0.0",
+    "users": [
+        {
+            "name": "adminuser",
+            "password_hash": "91uqu8lgrA9j5BA+MZA9nbGCUChHrXmTb7LMQbJQBU0GJGvD",
+            "hashing_algorithm": "rabbit_password_hashing_sha256",
+            "tags": "administrator"
+        },
+        {
+            "name": "mpp-tagging-service",
+            "password_hash": "Jbip0GIKjtwF9bXbAS7cegG77B2r6JOoFAL8gjB7c2sCmCGU",
+            "hashing_algorithm": "rabbit_password_hashing_sha256",
+            "tags": "service"
+        },
+        {
+            "name": "mpp-core",
+            "password_hash": "Qo23Sjro7dXWZ4m75Ac0ajJ9Ts7ndAH+S6hm+LjxAijHFhmC",
+            "hashing_algorithm": "rabbit_password_hashing_sha256",
+            "tags": "service"
+        }
+    ],
+    "vhosts": [
+        {
+            "name": "\/"
+        }
+    ],
+    "permissions": [
+        {
+            "user": "adminuser",
+            "vhost": "\/",
+            "configure": ".*",
+            "write": ".*",
+            "read": ".*"
+        },
+        {
+            "user": "mpp-tagging-service",
+            "vhost": "\/",
+            "configure": ".*",
+            "write": ".*",
+            "read": ".*"
+        },
+        {
+            "user": "mpp-core",
+            "vhost": "\/",
+            "configure": ".*",
+            "write": ".*",
+            "read": ".*"
+        }
+    ],
+    "parameters": [],
+    "policies": [],
+    "queues": [],
+    "exchanges": [],
+    "bindings": []
+}

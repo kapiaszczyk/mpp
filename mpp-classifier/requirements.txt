@@ -1,0 +1,9 @@
+aio_pika==9.5.4
+aiohttp==3.11.11
+fastapi==0.115.6
+tenacity==9.0.0
+tensorflow==2.18.0
+uvicorn==0.34.0
+wheel~=0.45.1
+numpy~=1.26.4
+pillow~=11.0.0

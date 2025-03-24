@@ -1,0 +1,71 @@
+mat-card {
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 0;
+    cursor: pointer;
+    width: 200px;
+    box-shadow: none;
+}
+
+mat-card img {
+    width: 100%;
+    object-fit: cover;
+}
+
+mat-card:hover img {
+    transform: scale(1.05);
+    transition: transform 0.5s ease-in-out;
+}
+
+mat-card-header {
+    display: flex;
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+    text-align: center;
+    justify-content: center;
+    border-radius: none;
+}
+
+.photo-card .checkmark {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    padding: 0.1rem;
+}
+
+.mat-checkbox {
+    display: inline-block;
+}
+
+.photos {
+    margin-top: 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 5px;
+}
+
+.selected {
+    box-shadow: 0 0 0 2px #2f8195;
+}
+
+.photo-wrapper {
+    position: relative;
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+}
+
+.upload-spinner {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.upload-placeholder {
+    background-color: rgba(123, 123, 123, 0.02);
+    width: 200px;
+    height: 200px;
+}

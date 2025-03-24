@@ -1,0 +1,5 @@
+<button mat-fab color="primary" class="upload-fab" (click)="fileInput.click()"
+    [matTooltip]="'tooltip.uploadPhotos' | translate">
+    <mat-icon>add_photo_alternate</mat-icon>
+</button>
+<input #fileInput type="file" multiple accept="image/*" style="display: none" (change)="uploadPhotos($event)" />

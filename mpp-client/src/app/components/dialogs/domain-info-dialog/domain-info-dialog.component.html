@@ -1,0 +1,47 @@
+<h1 mat-dialog-title>{{ 'domainInfo.title' | translate }}</h1>
+
+<div mat-dialog-content>
+  <!-- Loading State -->
+  <div *ngIf="loading" class="loading-container">
+    <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
+    <p>{{ 'common.loading' | translate }}</p>
+  </div>
+
+  <!-- Error State -->
+  <mat-error *ngIf="error">{{ error }}</mat-error>
+
+  <!-- Domain Info -->
+  <mat-card *ngIf="domainInfo">
+    <mat-card-content>
+      <p><strong>{{ 'domainInfo.domainName' | translate }}:</strong> {{ domainInfo.name }}</p>
+      <p><strong>{{ 'domainInfo.createdOn' | translate }}:</strong> {{ domainInfo.createdAt | date }}</p>
+      <p><strong>{{ 'domainInfo.owner' | translate }}:</strong> {{ domainInfo.ownerUsername }}</p>
+
+      <!-- Shared Users List -->
+      <div *ngIf="areThereSharedUsers(); else noSharedUsers">
+        <p><strong>{{ 'domainInfo.sharedWith' | translate }}:</strong></p>
+        <mat-list>
+          <mat-list-item *ngFor="let user of sharedUsers">
+            <mat-icon matListItemIcon>person</mat-icon>
+            <h3 matListItemTitle>{{user.username}}</h3>
+          </mat-list-item>
+        </mat-list>
+      </div>
+
+      <!-- No Shared Users Message -->
+      <ng-template #noSharedUsers>
+        <p class="text-muted"><em>{{ 'domainInfo.sharedWithNone' | translate }}</em></p>
+      </ng-template>
+    </mat-card-content>
+  </mat-card>
+
+  <!-- No Data Message -->
+  <div *ngIf="!loading && !error && !domainInfo">
+    <p>{{ 'domainInfo.noInfo' | translate }}</p>
+  </div>
+</div>
+
+<!-- Dialog Actions -->
+<div mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>{{ 'common.close' | translate }}</button>
+</div>

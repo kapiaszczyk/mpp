@@ -1,0 +1,60 @@
+<mat-card>
+    <mat-card-header>
+      <mat-card-title>{{ 'adminPanelModal.title' | translate }}</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <mat-list>
+        <mat-list-item>
+          <strong>{{ 'adminPanelModal.username' | translate }}:</strong>
+          {{ userStatistics.username }}
+        </mat-list-item>
+        <mat-list-item>
+          <strong>{{ 'adminPanelModal.role' | translate }}:</strong>
+          {{ userStatistics.role }}
+        </mat-list-item>
+        <mat-list-item>
+          <strong>{{ 'adminPanelModal.email' | translate }}:</strong>
+          {{ userStatistics.email }}
+        </mat-list-item>
+        <mat-list-item>
+          <strong>{{ 'adminPanelModal.spaceUsed' | translate }}:</strong>
+          {{ (userStatistics.spaceUsed / 1000000) | number }} MB
+        </mat-list-item>
+      </mat-list>
+  
+      <mat-divider></mat-divider>
+  
+      <h3>{{ 'adminPanelModal.domainStatistics' | translate }}</h3>
+      <div *ngIf="!userStatistics?.albumStats || userStatistics.albumStats.size === 0; else domainsTemplate">
+        <p>{{ 'adminPanelModal.noDomainsForUser' | translate }}.</p>
+      </div>
+  
+      <ng-template #domainsTemplate>
+        <p>{{ 'adminPanelModal.userDomains' | translate }}:</p>
+        <mat-list>
+          <mat-list-item *ngFor="let domain of domainStatisticsArray(userStatistics.albumStats)">
+            {{ domain[0] }} ({{ domain[1] / 1000000 | number }} MB)
+          </mat-list-item>
+        </mat-list>
+      </ng-template>
+    </mat-card-content>
+    
+    <mat-card-actions class="modal-actions">
+      <button
+        mat-flat-button
+        (click)="updateUserRole()"
+        [disabled]="isProcessing">
+        {{ userStatistics.role === 'ADMIN' ? ('adminPanelModal.changeToUser' | translate) : ('adminPanelModal.changeToAdmin' | translate) }}
+      </button>
+      <button
+        mat-flat-button
+        (click)="deleteUser()"
+        [disabled]="isProcessing">
+        {{ 'adminPanelModal.deleteUser' | translate }}
+      </button>
+      <button mat-stroked-button (click)="close()">
+        {{ 'common.close' | translate }}
+      </button>
+    </mat-card-actions>
+  </mat-card>
+  

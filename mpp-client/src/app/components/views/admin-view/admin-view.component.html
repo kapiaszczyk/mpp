@@ -1,0 +1,59 @@
+<mat-sidenav-container class="sidenav-container">
+    <!-- Side Menu -->
+    <mat-sidenav #sidenav mode="side" class="sidenav">
+      <img src="favicon.ico" alt="Logo" class="logo" />
+      <mat-toolbar color="primary">{{ 'application.title' | translate }}</mat-toolbar>
+      <nav class="menu-list">
+        <app-shared-menu [menuItems]="menuItems"></app-shared-menu>
+    </nav>
+    </mat-sidenav>
+
+    <mat-sidenav-content class="gallery-content">
+        <mat-toolbar color="primary">
+          <button mat-icon-button (click)="sidenav.toggle()">
+            <mat-icon>menu</mat-icon>
+          </button>
+          <span>{{ 'adminView.title' | translate }}</span>
+          <span class="spacer"></span>
+        </mat-toolbar>
+    
+
+        <div class="statistics-container" *ngIf="statistics; else loading">
+            <h2>{{ 'adminView.platformStatistics' | translate }}</h2>
+            <ul>
+              <li><strong>{{ 'adminView.totalDomains' | translate }}:</strong> {{ statistics.numberOfDomainsInSystem }}</li>
+              <li><strong>{{ 'adminView.totalPhotos' | translate }}:</strong> {{ statistics.numberOfPhotosInSystem }}</li>
+              <li><strong>{{ 'adminView.totalUsers' | translate }}:</strong> {{ statistics.numberOfUsersInSystem }}</li>
+              <li><strong>{{ 'adminView.rolesInSystem' | translate }}:</strong> {{ statistics.rolesInSystem.join(', ') }}</li>
+              <li><strong>{{ 'adminView.totalSpaceUsed' | translate }}:</strong> {{ statistics.spaceUsedInSystem / 1000000 | number }} MB ({{ statistics.spaceUsedInSystem / 1000 | number }} KB)</li>
+            </ul>
+          
+            <h2>{{ 'adminView.users' | translate }}</h2>
+            <table class="user-statistics">
+              <thead>
+                <tr>
+                  <th>{{ 'adminView.username' | translate }}</th>
+                  <th>{{ 'adminView.role' | translate }}</th>
+                  <th>{{ 'adminView.actions' | translate }}</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let user of statistics.usersInSystem">
+                  <td>{{ user.username }}</td>
+                  <td>{{ user.permission }}</td>
+                  <td>
+                    <button mat-icon-button (click)="openUserModal(user)"><mat-icon>edit</mat-icon>
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          
+          <ng-template #loading>
+            <p>{{ 'common.loading' | translate }}</p>
+          </ng-template>
+          
+
+    </mat-sidenav-content>
+</mat-sidenav-container>

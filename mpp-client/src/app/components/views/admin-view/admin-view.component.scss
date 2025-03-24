@@ -1,0 +1,88 @@
+mat-card {
+    cursor: pointer;
+    width: 200px;
+    box-shadow: none;
+}
+
+mat-card-header {
+    display: flex;
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+    text-align: center;
+    justify-content: center;
+    border-radius: none;
+}
+
+
+mat-card {
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+mat-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+mat-card:hover img {
+    transform: scale(1.05);
+    transition: transform 0.5s ease-in-out;
+}
+
+.mat-drawer-side {
+    border-right-color: rgb(0 0 0 / 20%);
+    border-right-width: 1px;
+    border-right-style: solid;
+    box-shadow: 4px 3px 8px rgb(0 0 0 / 14%);
+}
+
+.spacer {
+    flex: 1 1 auto;
+}
+
+.mat-mdc-card-title {
+    align-items: center;
+    text-align: center;
+}
+
+.statistics-container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+}
+
+.statistics-list {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 20px;
+}
+
+.statistics-list li {
+    margin: 8px 0;
+    font-size: 16px;
+}
+
+.statistics-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.statistics-table th,
+.statistics-table td {
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+.statistics-table th {
+    font-weight: bold;
+}
+
+.user-statistics {
+    width: -webkit-fill-available;
+    text-align: center;
+}

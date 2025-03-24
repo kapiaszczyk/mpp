@@ -1,0 +1,73 @@
+<h1 mat-dialog-title>{{ 'shareDomain.title' | translate }}</h1>
+
+<div mat-dialog-content>
+  <div *ngIf="sharedUsers.length > 0" class="shared-users">
+    <div>{{ 'shareDomain.currentlySharedWith' | translate }}:</div>
+    <mat-list>
+      <mat-list-item *ngFor="let user of sharedUsers">
+        <div class="user-item">
+          <strong>{{ user.username }}</strong>
+          <div class="permission-dropdown-container" matTooltip="{{ 'shareAlbum.changePermission' | translate }}" matTooltipShowDelay="500">
+            <mat-form-field appearance="outline" class="permission-dropdown" subscriptSizing="dynamic">
+              <mat-label>{{ user.translatedPermission }}</mat-label> 
+              <mat-select [(value)]="user.permission" (selectionChange)="updatePermission(user)">
+                <mat-option *ngFor="let role of availableRoles" [value]="role.value">
+                  {{ role.label | translate }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <button mat-icon-button (click)="removeUserPermission(user)" 
+                  [matTooltip]="'tooltip.removeSharedUser' | translate" 
+                  matTooltipPosition="right" matTooltipShowDelay="500">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </div>
+      </mat-list-item>
+    </mat-list>    
+  </div>
+
+  <p *ngIf="sharedUsers.length === 0">{{ 'shareDomain.noSharedUsers' | translate }}</p>
+
+  <p>{{ 'shareDomain.shareWith' | translate }}</p>
+  
+  <!-- Autocomplete field for username -->
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>{{ 'shareDomain.username' | translate }}</mat-label>
+    <input
+      matInput
+      [matAutocomplete]="auto"
+      [(ngModel)]="searchUsername"
+      (input)="searchUsers()"
+    />
+    <mat-autocomplete
+      #auto="matAutocomplete"
+      (optionSelected)="selectUser($event.option.value)"
+      [displayWith]="displayUserFn"
+    >
+      <mat-option *ngFor="let user of filteredUsers" [value]="user">
+        {{ user.username }}
+      </mat-option>
+    </mat-autocomplete>
+    <mat-error *ngIf="searchUsername?.length === 0">
+      {{ 'shareDomain.usernameRequired' | translate }}
+    </mat-error>
+  </mat-form-field>
+  
+
+  <mat-form-field appearance="outline" class="full-width" subscriptSizing="dynamic">
+    <mat-label>{{ 'shareDomain.permission' | translate }}</mat-label>
+    <mat-select [(ngModel)]="newUserPermission">
+      <mat-option value="viewer">{{ 'permissions.viewer' | translate }}</mat-option>
+      <mat-option value="editor">{{ 'permissions.editor' | translate }}</mat-option>
+      <mat-option value="administrator">{{ 'permissions.administrator' | translate }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+
+<div mat-dialog-actions>
+  <button mat-button mat-dialog-close>{{ 'common.cancel' | translate }}</button>
+  <button mat-button [disabled]="!selectedUser" (click)="addUserPermission()">
+    {{ 'shareDomain.share' | translate }}
+  </button>
+</div>

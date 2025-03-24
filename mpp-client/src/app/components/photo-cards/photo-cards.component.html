@@ -1,0 +1,19 @@
+<div class="photos">
+    <mat-card *ngFor="let photo of photos; let i = index" class="photo-card"
+        [class.selected]="selectedPhotos.has(photo.id)" (click)="handleCardClick(photo.id)"
+        (mouseenter)="hoveredPhoto = photo.id" (mouseleave)="hoveredPhoto = null" [attr.data-index]="i" #photoCard>
+        <div class="photo-wrapper">
+            <img [src]="photo.url" [alt]="photo.filename">
+            <div class="checkmark" *ngIf="hoveredPhoto === photo.id || selectedPhotos.has(photo.id)"
+                (click)="$event.stopPropagation()">
+                <mat-checkbox [checked]="selectedPhotos.has(photo.id)"
+                    (change)="togglePhotoSelection(photo.id, $event.checked, true)">
+                </mat-checkbox>
+            </div>
+        </div>
+    </mat-card>
+
+    <mat-card *ngIf="areNewPhotosBeingUploaded" class="upload-placeholder">
+        <mat-spinner class="upload-spinner" [strokeWidth]="3"></mat-spinner>
+    </mat-card>
+</div>

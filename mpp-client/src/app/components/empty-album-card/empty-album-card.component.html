@@ -1,0 +1,9 @@
+<mat-card class="no-photos-container">
+    <mat-card-header>
+        <mat-card-title>{{ 'noPhotosInAlbum.title' | translate }}</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+        <p *ngIf="canUserUploadPhotos">{{ 'noPhotosInAlbum.canUploadMessage' | translate }}</p>
+        <p *ngIf="!canUserUploadPhotos">{{ 'noPhotosInAlbum.cannotUploadMessage' | translate }}</p>
+    </mat-card-content>
+</mat-card>

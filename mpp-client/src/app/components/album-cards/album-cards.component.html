@@ -1,0 +1,23 @@
+<div class="albums">
+    <mat-card *ngFor="let album of albums" class="album-card" (click)="navigateToDomain(album.id)">
+        <div class="album-thumbnail-container">
+            <img mat-card-image class="album-thumbnail" alt="{{ album.name }}"
+                [src]="album.thumbnailUrl ? album.thumbnailUrl : 'assets/images/blank-cover.png'">
+            <mat-icon *ngIf="!album.thumbnailUrl" class="no-cover-icon">photo</mat-icon>
+        </div>
+        <mat-card-header class="album-header">
+            <mat-card-title>{{ album.name }}</mat-card-title>
+        </mat-card-header>
+        <mat-card-content class="album-details">
+            <span *ngIf="album.permissions && album.photoCount">
+                {{ album.photoCount }}
+                <ng-container *ngIf="album.photoCount === 1">{{ 'album.file' | translate }}</ng-container>
+                <ng-container *ngIf="album.photoCount > 0 && album.photoCount !== 1">{{ 'album.files' | translate }}</ng-container>
+                <ng-container *ngIf="album.photoCount === 0">{{ 'album.noFiles' | translate }}</ng-container>
+            </span>
+            <span *ngIf="album.permissions && album.permissions.size !== 0" [matTooltip]="'album.isShared' | translate">
+                <mat-icon>group</mat-icon>
+            </span>
+        </mat-card-content>
+    </mat-card>
+</div>

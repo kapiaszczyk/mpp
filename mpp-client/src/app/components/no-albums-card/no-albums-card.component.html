@@ -1,0 +1,9 @@
+<mat-card class="no-albums-container">
+    <mat-card-header>
+        <mat-card-title>{{ 'noAlbums.title' | translate }}</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+        <p *ngIf="!noAlbumsSharedWithUser">{{ 'noAlbums.userHasNoAlbumsMessage' | translate }}</p>
+        <p *ngIf="noAlbumsSharedWithUser">{{ 'noAlbums.noAlbumsSharedWithUser' | translate }}</p>
+    </mat-card-content>
+</mat-card>

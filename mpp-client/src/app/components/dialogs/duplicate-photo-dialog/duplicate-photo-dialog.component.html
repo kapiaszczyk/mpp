@@ -1,0 +1,23 @@
+<h1 mat-dialog-title>{{ 'duplicatePhoto.title' | translate }}</h1>
+<div mat-dialog-content>
+  <div class="search-bar">
+    <mat-form-field appearance="outline" class="full-width" subscriptSizing="dynamic">
+      <mat-label>{{ 'search.searchForDomain' | translate }}</mat-label>
+      <input matInput [(ngModel)]="searchQuery" (ngModelChange)="filterDomains()"
+        [placeholder]="'search.typeToSearch' | translate" />
+    </mat-form-field>
+  </div>
+
+  <mat-list>
+    <mat-list-item *ngFor="let domain of filteredDomains" (click)="selectDomain(domain)"
+      [class.selected]="domain === selectedDomain">
+      {{ domain.name }}
+    </mat-list-item>
+  </mat-list>
+
+</div>
+<div mat-dialog-actions>
+  <button mat-button mat-dialog-close>{{ 'common.cancel' | translate }}</button>
+  <button mat-button [disabled]="!selectedDomain" [mat-dialog-close]="selectedDomain">{{ 'duplicatePhoto.duplicateHere'| translate }}</button>
+  <button mat-button color="primary" (click)="createNewDomain()">{{ 'operations.createNewAlbum' | translate }}</button>
+</div>

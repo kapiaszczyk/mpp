@@ -1,0 +1,36 @@
+<mat-card class="login-card">
+    <!-- Login form -->
+    <form class="form flex flex-center" [formGroup]="loginForm">
+        <mat-card-title>{{ 'loginView.login' | translate}}</mat-card-title>
+        <mat-form-field class="form-field" appearance="outline" subscriptSizing="dynamic">
+            <mat-label>{{ 'loginView.email' | translate}}</mat-label>
+            <input type="email" matInput formControlName="email">
+            @if (loginForm.get('email')?.hasError('required')) {
+            <mat-error>{{ 'loginView.emailRequired' | translate}}</mat-error>
+            }
+            @if (loginForm.get('email')?.hasError('email')) {
+            <mat-error>{{ 'loginView.emailInvalid' | translate}}</mat-error>
+            }
+        </mat-form-field>
+        <mat-form-field class="form-field" appearance="outline" subscriptSizing="dynamic">
+            <mat-label>{{ 'loginView.password' | translate}}</mat-label>
+            <input type="password" matInput formControlName="password">
+            @if (loginForm.get('password')?.hasError('required')) {
+            <mat-error>{{ 'loginView.passwordRequired' | translate}}</mat-error>
+            }
+        </mat-form-field>
+
+        <!-- Errors related to response -->
+        <div *ngIf="error" class="error">
+            <mat-icon>error</mat-icon>
+            <span>{{ error }}</span>
+        </div>
+
+        <!-- Submit Button -->
+        <button mat-stroked-button (click)="submit()" [disabled]="loginForm.invalid">{{ 'loginView.login' | translate}}</button>
+    </form>
+    <!-- Go to register page -->
+    <div class="register-link">
+        <button mat-flat-button color="primary" (click)="goToRegister()">{{ 'loginView.register' | translate}}</button>
+    </div>
+</mat-card>

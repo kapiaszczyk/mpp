@@ -1,0 +1,26 @@
+<div class="selection-bar">
+    <mat-checkbox [checked]="selectedPhotosCount === totalPhotos" (change)="selectAll()">
+        {{ selectedPhotosCount === totalPhotos ? ('photoSelection.deselectAll' | translate)  : ('photoSelection.selectAll' | translate) }}
+    </mat-checkbox>
+
+    <button mat-icon-button (click)="download.emit()" *ngIf="canDownloadPhotos"
+        [matTooltip]="('tooltip.downloadSelected' | translate)">
+        <mat-icon>download</mat-icon>
+    </button>
+    <button mat-icon-button (click)="move.emit()" *ngIf="canMovePhotos"
+        [matTooltip]="('tooltip.moveSelected' | translate)">
+        <mat-icon>drive_file_move</mat-icon>
+    </button>
+    <button mat-icon-button (click)="duplicate.emit()" *ngIf="canDuplicatePhotos"
+        [matTooltip]="('tooltip.duplicateSelected' | translate)">
+        <mat-icon>file_copy</mat-icon>
+    </button>
+    <button mat-icon-button (click)="delete.emit()" *ngIf="canDeletePhotos"
+        [matTooltip]="('tooltip.deleteSelected' | translate)">
+        <mat-icon>delete</mat-icon>
+    </button>
+    <button mat-icon-button *ngIf="selectedPhotosCount === 1 && canSetAsAlbumCover" (click)="setAsAlbumCover.emit()" 
+        [matTooltip]="('tooltip.setAsAlbumCover' | translate)">
+        <mat-icon>wallpaper</mat-icon>
+    </button>
+</div>

@@ -1,0 +1,13 @@
+<h1 mat-dialog-title>{{ 'renameAlbum.title' | translate }}</h1>
+<div mat-dialog-content class="rename-album-dialog">
+    <mat-form-field appearance="outline" class="full-width no-bottom-margin" subscriptSizing="dynamic">
+        <mat-label>{{ 'renameAlbum.albumName' | translate }}</mat-label>
+        <input matInput [(ngModel)]="data.name" required />
+        <mat-error *ngIf="data.name && data.name.length === 0">{{ 'renameAlbum.albumNameRequired' | translate }}</mat-error>
+    </mat-form-field>
+</div>
+<div mat-dialog-actions>
+    <button mat-button mat-dialog-close>{{ 'common.cancel' | translate }}</button>
+    <button mat-button [disabled]="data.name && data.name.length === 0" [mat-dialog-close]="data.name" cdkFocusInitial>{{
+        'renameAlbum.rename' | translate }}</button>
+</div>

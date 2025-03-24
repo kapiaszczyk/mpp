@@ -1,0 +1,70 @@
+<mat-card class="login-card">
+  <!-- Register form -->
+  <form class="form flex flex-center" [formGroup]="registerForm">
+    <mat-card-title>{{ 'registerView.title' | translate}}</mat-card-title>
+    <!-- Username Field -->
+    <mat-form-field class="form-field" appearance="outline" subscriptSizing="dynamic">
+      <mat-label>{{ 'registerView.username' | translate }}</mat-label>
+      <input type="text" matInput formControlName="username">
+      <mat-error *ngIf="registerForm.get('username')?.hasError('required')">
+        {{ 'registerView.usernameRequired' | translate }}
+      </mat-error>
+    </mat-form-field>
+
+    <!-- Email Field -->
+    <mat-form-field class="form-field" appearance="outline" subscriptSizing="dynamic">
+      <mat-label>{{ 'registerView.email' | translate }}</mat-label>
+      <input type="email" matInput formControlName="email">
+      <mat-error *ngIf="registerForm.get('email')?.hasError('required')">
+        {{ 'registerView.emailRequired' | translate }}
+      </mat-error>
+      <mat-error *ngIf="registerForm.get('email')?.hasError('email')">
+        {{ 'registerView.emailInvalid' | translate }}
+      </mat-error>
+    </mat-form-field>
+
+    <!-- Password Field -->
+    <mat-form-field class="form-field" appearance="outline" subscriptSizing="dynamic">
+      <mat-label>{{ 'registerView.password' | translate }}</mat-label>
+      <input type="password" matInput formControlName="password">
+      <mat-error *ngIf="registerForm.get('password')?.hasError('required')">
+        {{ 'registerView.passwordRequired' | translate }}
+      </mat-error>
+      <mat-error *ngIf="registerForm.get('password')?.hasError('minlength')">
+        {{ 'registerView.passwordMinLength' | translate }}
+      </mat-error>
+    </mat-form-field>
+
+    <!-- Repeat Password Field -->
+    <mat-form-field class="form-field" appearance="outline" subscriptSizing="dynamic">
+      <mat-label>{{ 'registerView.confirmPassword' | translate}}</mat-label>
+      <input type="password" matInput formControlName="repeatPassword">
+      <mat-error *ngIf="registerForm.get('repeatPassword')?.hasError('passwordMismatch')">
+        {{ 'registerView.passwordMismatch' | translate}}
+      </mat-error>
+      <mat-error *ngIf="registerForm.get('repeatPassword')?.hasError('required')">
+        {{ 'registerView.confirmPasswordRequired' | translate}}
+      </mat-error>
+    </mat-form-field>
+
+    <!-- Errors related to response -->
+    <div *ngIf="error" class="error">
+      <mat-icon>error</mat-icon>
+      <span>{{ error }}</span>
+    </div>
+
+    <!-- Submit Button -->
+    <button mat-stroked-button (click)="submit()" [disabled]="registerForm.invalid">
+      {{ 'registerView.register' | translate}}
+    </button>
+  </form>
+  <!-- Go to login page -->
+  <div class="login-link">
+    <button mat-flat-button color="secondary" (click)="goToLogin()">{{ 'registerView.login' | translate}}</button>
+  </div>
+
+  <div class="language-selector">
+    <app-language-selector></app-language-selector>
+  </div>
+</mat-card>
+<!-- Button allowing to change language -->

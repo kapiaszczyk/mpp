@@ -1,0 +1,127 @@
+@use '@angular/material' as mat;
+@use '_theme-colors.scss' as mpp-theme;
+
+@include mat.core();
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.mat-typography h1 {
+  margin-bottom: 0;
+}
+
+.full-width {
+  width: 100%;
+}
+
+html {
+  @include mat.theme((color: (primary: mpp-theme.$primary-palette,
+        tertiary: mpp-theme.$tertiary-palette,
+        theme-type: dark,
+      ),
+      typography: Roboto,
+      density: 0,
+    ));
+
+  @media (prefers-contrast: more) {
+    @include mpp-theme.high-contrast-overrides(dark);
+  }
+
+  @media (prefers-color-scheme: light) {
+    @include mat.theme((color: (primary: mpp-theme.$primary-palette,
+          tertiary: mpp-theme.$tertiary-palette,
+          theme-type: light,
+        ),
+        typography: Roboto,
+        density: 0,
+      ));
+
+    @media (prefers-contrast: more) {
+      @include mpp-theme.high-contrast-overrides(light);
+    }
+  }
+}
+
+:root {
+  --primary: (mpp-theme.$primary-palette, 50);
+}
+
+.content {
+  background-color: var(--mat-sys-background);
+}
+
+// TODO: This is a hack, the color should be set in the theme (but it remains black for some reason)
+mat-card-title,
+h3,
+p {
+  color: var(--mat-sys-outline);
+}
+
+.photo-card .checkmark {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  padding: 0.1rem;
+}
+
+.mat-checkbox {
+  display: inline-block;
+}
+
+/* Width and height of the scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+/* The draggable scrollbar handle */
+::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background: var(--mat-sys-on-primary);
+}
+
+/* On hover, make the scrollbar darker */
+::-webkit-scrollbar-thumb:hover {
+  background: var(--mat-sys-outline);
+}
+
+.mat-toolbar-row,
+.mat-toolbar-single-row,
+.mat-toolbar mat-primary mat-toolbar-single-row {
+  height: 75px;
+  min-height: 75px;
+}
+
+.spinner-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.spinner-container-uploading {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.sidenav-container {
+  height: 100%;
+}
+
+.sidenav {
+  max-width: 300px;
+}
+
+.logo {
+  height: 25px;
+  width: 25px;
+  margin-right: 10px;
+}

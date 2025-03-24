@@ -1,0 +1,26 @@
+<div class="dialog-header">
+  <h3 mat-dialog-title>{{ 'deleteDomain.delete' | translate }}</h3>
+</div>
+<div mat-dialog-content>
+  <!-- 
+  <p><strong>{{ 'deleteDomain.chooseAlbumsAction' | translate }}:</strong></p>
+  <mat-radio-group [(ngModel)]="moveChildrenDataToParent">
+    <mat-radio-button value=false>{{ 'deleteDomain.deleteAlbums' | translate }}</mat-radio-button>
+    <mat-radio-button value=true>{{ 'deleteDomain.moveAlbums' | translate }}</mat-radio-button>
+  </mat-radio-group>
+   -->
+  <p><strong>{{ 'deleteDomain.choosePhotoAction' | translate }}:</strong></p>
+  <mat-radio-group [(ngModel)]="moveToParentDomain">
+    <mat-radio-button value=false>{{ 'deleteDomain.deletePhotos' | translate }}</mat-radio-button>
+    <mat-radio-button value=true>{{ 'deleteDomain.movePhotos' | translate }}</mat-radio-button>
+  </mat-radio-group>
+</div>
+<div mat-dialog-actions>
+  <button mat-button mat-dialog-close>{{ 'common.cancel' | translate }}</button>
+  <button mat-button [disabled]="!areAllChoicesMade()"
+    [mat-dialog-close]="{ moveChildrenDataToParent, moveToParentDomain }" cdkFocusInitial
+    [matTooltip]="'tooltip.deleteAlbumWarning' | translate" matTooltipPosition="below"
+    >
+    {{ 'deleteDomain.delete' | translate }}
+    </button>
+</div>

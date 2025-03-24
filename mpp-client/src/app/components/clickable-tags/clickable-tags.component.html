@@ -1,0 +1,14 @@
+<mat-chip-listbox>
+    <mat-chip *ngFor="let tag of displayedTags" (click)="navigateToTag(tag)"
+        [ngClass]="{'current-tag': tag === currentTag}">
+        {{ tag }}
+    </mat-chip>
+
+    <mat-chip class="special-chip" *ngIf="tags.length > maxTags" (click)="toggleShowMore()">
+        {{ 'tagView.showMore' | translate }}
+    </mat-chip>
+
+    <mat-chip class="special-chip" *ngIf="showMore" (click)="toggleShowLess()">
+        {{ 'tagView.showLess' | translate }}
+    </mat-chip>
+</mat-chip-listbox>

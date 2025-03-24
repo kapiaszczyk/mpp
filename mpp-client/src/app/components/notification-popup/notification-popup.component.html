@@ -1,0 +1,12 @@
+<div class="notification-popup">
+    <div *ngFor="let message of messages" class="notification" [ngClass]="message.type">
+        <mat-icon>
+            <ng-container [ngSwitch]="message.type">
+                <ng-container *ngSwitchCase="'success'">check_circle</ng-container>
+                <ng-container *ngSwitchCase="'error'">error</ng-container>
+                <ng-container *ngSwitchDefault>info</ng-container>
+            </ng-container>
+        </mat-icon>
+        <span>{{ message.text }}</span>
+    </div>
+</div>

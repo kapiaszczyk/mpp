@@ -1,0 +1,58 @@
+<mat-sidenav-container class="sidenav-container" fullscreen>
+  <mat-sidenav #sidenav mode="side" [(opened)]="drawerOpen" class="sidenav" position="end">
+    <div class="photo-metadata">
+      <mat-icon>event</mat-icon>
+      <p>{{ 'photoView.uploadedOn' | translate }}: {{ photos[this.currentPhotoIndex].uploadDate | date:'medium' }}</p>
+
+      <mat-icon>storage</mat-icon>
+      <p>{{ 'photoView.photoSize' | translate }}: {{ photos[this.currentPhotoIndex].size | number }} KB</p>
+
+      <mat-icon *ngIf="editable">sell</mat-icon>
+      <p *ngIf="editable">{{ 'photoView.photoTag' | translate }}</p>
+    </div>
+
+    <div class="tags-wrapper" *ngIf="editable">
+      <app-photo-tags [tags]="photos[this.currentPhotoIndex].tags"
+        (tagsChanged)="updateTags(photos[this.currentPhotoIndex], $event)"></app-photo-tags>
+    </div>
+
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <div class="photo-viewer">
+      <!-- Photo Display -->
+      <div class="photo-container">
+        <div class="photo-wrapper">
+
+          <div class="loading-spinner" *ngIf="isCurrentPhotoLoading">
+            <mat-spinner mode="indeterminate"></mat-spinner>
+          </div>
+
+          <div *ngIf="!isCurrentPhotoLoading">
+            <img [src]="photos[this.currentPhotoIndex].fullUrl" [alt]="photos[this.currentPhotoIndex].filename"
+              class="photo full-screen-photo" (load)="isCurrentPhotoLoading = false" />
+            <div class="photo-name">{{ photos[this.currentPhotoIndex].filename }}</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Navigation Buttons -->
+      <button mat-mini-fab class="nav-button prev" (click)="prevPhoto()" [disabled]="this.currentPhotoIndex === 0">
+        <mat-icon>chevron_left</mat-icon>
+      </button>
+      <button mat-mini-fab class="nav-button next" (click)="nextPhoto()"
+        [disabled]="this.currentPhotoIndex === photos.length - 1">
+        <mat-icon>chevron_right</mat-icon>
+      </button>
+
+      <!-- Action buttons -->
+      <div class="action-buttons">
+        <button mat-mini-fab class="close-button" (click)="closeViewer()">
+          <mat-icon>close</mat-icon>
+        </button>
+        <button mat-mini-fab class="info-button" (click)="toggleDrawer()">
+          <mat-icon>{{ drawerOpen ? 'info' : 'info_outline' }}</mat-icon>
+        </button>
+      </div>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>

@@ -1,0 +1,20 @@
+<div class="photo-tags">
+    <mat-form-field class="tag-input" 
+    [matTooltip]="'tooltip.editTag' | translate"
+    [matTooltipShowDelay]="500"
+    [matTooltipPosition]="'below'">
+        <mat-chip-grid #chipGrid aria-label="Enter tags">
+            <mat-chip-row *ngFor="let tag of tags; let i = index" [editable]="true" (edited)="editTag(i, $event)"
+                (removed)="removeTag(i)" [aria-description]="'press enter to edit ' + tag">
+                {{ tag }}
+                <button matChipRemove [attr.aria-label]="'remove ' + tag">
+                    <mat-icon>close</mat-icon>
+                </button>
+            </mat-chip-row>
+
+            <input placeholder="{{ 'photoView.addATag' | translate }}..." [matChipInputFor]="chipGrid"
+                [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur"
+                (matChipInputTokenEnd)="addTag($event)" (keydown)="handleKeydown($event)" maxlength="20" #tagInput />
+        </mat-chip-grid>
+    </mat-form-field>
+</div>

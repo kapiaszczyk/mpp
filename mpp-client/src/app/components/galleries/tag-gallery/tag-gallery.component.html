@@ -1,0 +1,81 @@
+<mat-sidenav-container class="sidenav-container">
+    <!-- Side Menu -->
+    <mat-sidenav #sidenav mode="side" class="sidenav">
+        <mat-toolbar color="primary">
+            <img src="favicon.ico" alt="Logo" class="logo" />
+            <span>{{ 'application.title' | translate }}</span>
+        </mat-toolbar>
+        <nav class="menu-list">
+            <app-shared-menu [menuItems]="menuItems"></app-shared-menu>
+        </nav>
+    </mat-sidenav>
+
+    <!-- Main Content (Gallery) -->
+    <mat-sidenav-content class="gallery-content">
+        <mat-toolbar color="primary">
+            <button mat-icon-button (click)="sidenav.toggle()">
+                <mat-icon>menu</mat-icon>
+            </button>
+            <span>{{ 'tagView.title' | translate }}</span>
+        </mat-toolbar>
+
+        <div class="content">
+            <div *ngIf="tags.length === 0">
+                <app-no-tags-card />
+            </div>
+
+            <div class="tag-chips">
+                <!-- If we are displaying results for a tag... -->
+                <div *ngIf="this.currentTag" class="tag-text">
+                    {{"tooltip.displayingResultsFor" | translate }}: {{ this.currentTag }}
+                </div>
+                <div *ngIf="!this.currentTag" class="tag-text">
+                    <span>{{ 'tagView.someOfYourTags' | translate }}</span>
+                </div>
+                <app-clickable-tags *ngIf="tags.length !== 0" [tags]="tags"
+                    [currentTag]="currentTag!"></app-clickable-tags>
+            </div>
+
+            <div class="search-bar-container" *ngIf="tags.length !== 0">
+                <mat-form-field appearance="outline" class="search-bar">
+                    <mat-label>{{ 'search.placeholder' | translate }}</mat-label>
+                    <input type="text" matInput [formControl]="searchControl" [matAutocomplete]="auto"
+                        (keyup.enter)="searchByTag(searchControl.value!)" />
+                    <mat-icon matSuffix>search</mat-icon>
+                </mat-form-field>
+
+                <mat-autocomplete #auto="matAutocomplete" (optionSelected)="searchByTag($event.option.value)">
+                    <mat-option *ngFor="let tag of filteredTags | async" [value]="tag">
+                        {{ tag }}
+                    </mat-option>
+                </mat-autocomplete>
+            </div>
+
+
+            <app-photo-selection-bar *ngIf="mergeAllPhotosInOneArray().length > 0 && isAtLeastOnePhotoSelected()"
+                [selectedPhotosCount]="selectedPhotosCount()" [totalPhotos]="mergeAllPhotosInOneArray().length"
+                [canDeletePhotos]="true" [canDownloadPhotos]="true" [canDuplicatePhotos]="true" [canMovePhotos]="true"
+                [canSetAsAlbumCover]="false" (toggleSelectAll)="toggleSelectAll($event)" (download)="downloadPhotos()"
+                (move)="openMoveDialog()" (duplicate)="openDuplicateDialog()"
+                (delete)="deletePhotos()"></app-photo-selection-bar>
+
+            <div *ngFor="let domain of photosGroupedByDomainResponse" class="gallery-container">
+                <div class="domain-title" (click)="navigateToDomain(domain.albumId)">
+                    <mat-icon>folder</mat-icon>
+                    <span>{{ domain.albumName }}</span>
+                </div>
+                <app-photo-cards [photos]="domain.photos" (photoClicked)="viewPhoto($event)"
+                    (photoSelectionChanged)="togglePhotoSelection($event.photoId, $event.checked)"
+                    [selectedPhotos]="selectedPhotos">
+                </app-photo-cards>
+            </div>
+
+            <app-photo-viewer *ngIf="isPhotoViewerOpen" [photos]="mergeAllPhotosInOneArray()"
+                [currentPhotoId]="selectedPhotoId" [currentPhotoIndex]="selectedPhotoIndex"
+                (close)="closePhotoViewer()">
+            </app-photo-viewer>
+        </div>
+
+
+    </mat-sidenav-content>
+</mat-sidenav-container>

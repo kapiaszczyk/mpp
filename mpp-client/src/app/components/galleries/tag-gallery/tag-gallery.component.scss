@@ -1,0 +1,156 @@
+.tags {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 5px;
+}
+
+.back-to-tags-continer {
+    display: flex;
+    justify-content: center;
+    margin: 1em;
+}
+
+.tag-card {
+    cursor: pointer;
+    padding: 0.25em 0.5em;
+    transition: transform 0.3s, box-shadow 0.3s;
+    border-radius: 5px;
+    width: fit-content;
+}
+
+.tag-container {
+    padding: 0.5em;
+}
+
+.tag-card:hover {
+    transform: scale(1.025);
+    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.1);
+}
+
+
+.selected-tag {
+    background-color: var(--mat-sys-on-secondary);
+}
+
+.albums,
+.photos {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 5px;
+}
+
+mat-card {
+    cursor: pointer;
+    width: 200px;
+    box-shadow: none;
+}
+
+img.mat-card-image {
+    height: 200px;
+    object-fit: cover;
+}
+
+.separator {
+    border: none;
+    height: 1px;
+    background-color: rgba(0, 0, 0, 0.05);
+    margin: 5px 0;
+}
+
+.photos {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 5px;
+}
+
+mat-card {
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 0;
+}
+
+mat-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+mat-card:hover img {
+    transform: scale(1.05);
+    transition: transform 0.5s ease-in-out;
+}
+
+.mat-drawer-side {
+    border-right-color: rgb(0 0 0 / 20%);
+    border-right-width: 1px;
+    border-right-style: solid;
+    box-shadow: 4px 3px 8px rgb(0 0 0 / 14%);
+}
+
+.menu-list button {
+    text-align: left;
+    width: 100%;
+    border-radius: 0;
+}
+
+.spacer {
+    flex: 1 1 auto;
+}
+
+.photo-wrapper {
+    position: relative;
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+}
+
+.photo-wrapper img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.mat-mdc-card-title {
+    align-items: center;
+    text-align: center;
+}
+
+mat-card-title.mat-mdc-card-title {
+    font-size: 1em;
+}
+
+.domain-title {
+    margin-bottom: 0;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.search-bar {
+    width: 100%;
+}
+
+.content {
+    padding: 20px;
+}
+
+.gallery-container {
+    margin-bottom: 20px;
+    margin-top: 10px;
+}
+
+.tag-chips {
+    margin-bottom: 15px;
+}
+
+.domain-title:hover {
+    cursor: pointer;
+}
+
+.tag-text {
+    font-size: 1.5em;
+    font-weight: 500;
+    margin-bottom: 10px;
+}

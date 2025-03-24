@@ -1,0 +1,16 @@
+.upload-fab {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+}
+
+.upload-fab mat-icon {
+    font-size: 3em;
+    width: 2em;
+    height: 2em;
+    line-height: 2em;
+}

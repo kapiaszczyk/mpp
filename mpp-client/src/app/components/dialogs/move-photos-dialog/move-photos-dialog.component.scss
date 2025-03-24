@@ -1,0 +1,22 @@
+.full-width {
+  width: 100%;
+}
+
+mat-list {
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+mat-dialog-actions {
+  display: flex;
+  justify-content: space-between;
+}
+
+.selected {
+  background-color: var(--mat-sys-on-secondary)
+}
+
+.search-bar {
+  overflow: visible;
+  margin: 5px 0 0 0;
+}

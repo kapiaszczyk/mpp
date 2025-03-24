@@ -1,0 +1,67 @@
+.login-card {
+  width: 90%;
+  max-width: 350px;
+  margin: auto;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: none;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.flex {
+  display: flex;
+}
+
+.flex-center {
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.form-field {
+  width: 100%;
+}
+
+button {
+  width: 100%;
+  padding: 12px;
+  font-size: 16px;
+}
+
+.error {
+  display: flex;
+  align-items: center;
+  // TODO: Use theme colors
+  color: red;
+  font-size: 14px;
+  margin-top: 8px;
+  padding: 4px 8px;
+  border-radius: 4px;
+}
+
+.error mat-icon {
+  margin-right: 8px;
+  // TODO: Use theme colors
+}
+
+.register-link {
+  text-align: center;
+  margin-top: 16px;
+}
+
+.register-link button {
+  font-weight: bold;
+}
+
+mat-card-title {
+  color: var(--mat-sys-outline);
+}

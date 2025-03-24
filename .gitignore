@@ -1,0 +1,85 @@
+HELP.md
+mpp-core/target/
+mvnw
+mvnw.cmd
+mpp-core/.mvn
+
+app.log
+*.gz
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+
+### VS Code ###
+.vscode/
+
+### Tag Generator ###
+tag-generator/env/
+tag-generator/tf_env
+
+### Frontend ###
+# Compiled output
+mpp-client/dist
+mpp-client/tmp
+mpp-client/out-tsc
+mpp-client/bazel-out
+
+# Node
+mpp-client/node_modules
+mpp-client-debug.log
+mpp-client-error.log
+
+# IDEs and editors
+.idea/
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+
+# Visual Studio Code
+/mpp-client/.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+.history/*
+
+# Miscellaneous
+/mpp-client/.angular/cache
+/mpp-client/.sass-cache/
+/mpp-client/connect.lock
+/mpp-client/coverage
+/mpp-client/libpeerconnection.log
+/mpp-client/testem.log
+/mpp-client/typings
+
+# System files
+/mpp-client/.DS_Store
+/mpp-client/Thumbs.db
+
+
+### Other ###
+temp.md
+/mpp-classifier/src/__pycache__
+/mpp-classifier/.pytest_cache
+/mpp-classifier/env/
+/mpp-classifier/tf_env/
+/mpp-classifier/tests/__pycache__
+/mpp-classifier/tests/.pytest_cache
+
+### FIXME: Fix tests so they do not hog the pipelines
+/mpp-client/src/tests
+/mpp-core/src/test
+/mpp-classifier/tests
